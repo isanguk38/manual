@@ -164,12 +164,12 @@ async function ask(q) {
 
   try {
     if (!results.length) {
-      bubble.innerHTML = render(
-        "설명서에서 관련 내용을 찾지 못했습니다. 다른 표현으로 질문하시거나 고객만족 서비스센터(1800-6307)로 문의해 주세요."
-      );
+      bubble.innerHTML = render("설명서에서 관련 내용을 찾지 못했습니다.");
+      addWebSearch(bubble, q);
     } else if (engine) {
-      await answerWithAI(q, results, bubble);
-      addSources(bubble, results);
+      const answer = await answerWithAI(q, results, bubble);
+      if (/찾을 수 없습니다/.test(answer)) addWebSearch(bubble, q);
+      else addSources(bubble, results);
     } else {
       answerWithSearch(results, bubble);
     }
@@ -210,6 +210,23 @@ async function answerWithAI(q, results, bubble) {
     scrollDown();
   }
   bubble.classList.remove("typing");
+  return stripThink(text);
+}
+
+// 설명서에 없는 질문: 제품명을 붙인 검색어로 외부 검색 결과를 새 탭에서 열 수 있게 안내
+function addWebSearch(bubble, q) {
+  const query = encodeURIComponent(`미닉스 더 플렌더 맥스 ${q}`);
+  const box = document.createElement("div");
+  box.className = "websearch";
+  box.innerHTML =
+    `<p class="muted">설명서에 없는 내용이라 인터넷 검색을 안내합니다. (공식 설명서가 아닌 정보는 정확하지 않을 수 있어요)</p>` +
+    `<div class="websearch-links">` +
+    `<a href="https://duckduckgo.com/?q=${query}" target="_blank" rel="noopener">DuckDuckGo에서 검색</a>` +
+    `<a href="https://search.naver.com/search.naver?query=${query}" target="_blank" rel="noopener">네이버에서 검색</a>` +
+    `<a href="tel:1800-6307">고객센터 1800-6307</a>` +
+    `</div>`;
+  bubble.append(box);
+  scrollDown();
 }
 
 function answerWithSearch(results, bubble, append = false) {

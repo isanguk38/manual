@@ -148,6 +148,16 @@ main {
   font-size: 13px;
 }
 .excerpt-head { font-weight: 600; margin-bottom: 4px; }
+.websearch { margin-top: 8px; }
+.websearch-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+.websearch-links a {
+  font-size: 13px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--accent);
+  text-decoration: none;
+}
+.websearch-links a:hover { background: var(--accent); color: var(--accent-text); }
 .sources { margin-top: 10px; font-size: 13px; color: var(--muted); }
 .sources summary { cursor: pointer; }
 .sources summary a { margin-right: 6px; }
