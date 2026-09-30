@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: flender-manual-ai
+    runtime: static
+    buildCommand: echo "no build needed"
+    staticPublishPath: ./public
+    headers:
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff

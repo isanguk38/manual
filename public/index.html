@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>플렌더 맥스 도우미</title>
+  <meta name="description" content="미닉스 더 플렌더 맥스(MNFD-200G) 사용 설명서 기반 질의응답 도우미" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    <header>
+      <div class="brand">
+        <h1>더 플렌더 맥스 도우미</h1>
+        <p>MNFD-200G 사용 설명서 기반 · <a href="manual.pdf" target="_blank" rel="noopener">설명서 원본</a></p>
+      </div>
+      <span id="status" data-kind="off">준비 중…</span>
+    </header>
+
+    <section class="ai-bar">
+      <select id="model" aria-label="AI 모델 선택"></select>
+      <button id="ai-btn" type="button">AI 켜기</button>
+      <p id="ai-hint">AI는 내 기기(브라우저)에서 실행됩니다. 처음 한 번 모델을 내려받고, 이후에는 저장된 모델을 사용합니다. 질문 내용은 서버로 전송되지 않습니다.</p>
+      <div id="progress" hidden>
+        <div class="bar"><div id="progress-bar"></div></div>
+        <p id="progress-text"></p>
+      </div>
+    </section>
+
+    <main id="log" aria-live="polite">
+      <div id="intro">
+        <p>설명서 내용에 대해 무엇이든 물어보세요.</p>
+        <div class="chips">
+          <button class="chip" type="button">Check 1 에러는 어떻게 해결하나요?</button>
+          <button class="chip" type="button">필터는 언제 교체해야 하나요?</button>
+          <button class="chip" type="button">음식물이 충분한데 자동으로 시작되지 않아요</button>
+          <button class="chip" type="button">넣으면 안 되는 음식물은?</button>
+          <button class="chip" type="button">세척모드 사용 방법</button>
+          <button class="chip" type="button">품질 보증 기간은?</button>
+        </div>
+      </div>
+    </main>
+
+    <form id="form">
+      <textarea id="q" rows="1" placeholder="질문을 입력하세요" disabled></textarea>
+      <button id="send" type="submit" disabled>보내기</button>
+    </form>
+  </div>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
